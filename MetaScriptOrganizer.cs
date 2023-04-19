@@ -40,7 +40,7 @@ public class MetaFileChangeListener : AssetPostprocessor
             if(AssetDatabase.AssetPathToGUID("Assets/_CompressMeta.py")=="2eafba05e4b08124381e9dd1ba5e1d25")
             {
                 Debug.Log("Importing new meta files");
-                DoProcess("_ImportMeta.py");
+                DoProcess("_ImportMeta");
             }else 
             {
                 Debug.Log("Meta file changed");
