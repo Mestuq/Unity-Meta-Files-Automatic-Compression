@@ -8,4 +8,3 @@ for path, subdirs, files in os.walk(pathlib.Path()):
             file=os.path.join(path, name)
             os.remove(file)
 print('SUCCESS')
-input("Press Enter to continue...")
