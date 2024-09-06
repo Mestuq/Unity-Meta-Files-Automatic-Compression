@@ -221,14 +221,16 @@ public class MetaCompressionWindow : EditorWindow
     {
         if (string.IsNullOrEmpty(path) || string.IsNullOrEmpty(label))
         {
-            Debug.LogError("Path or label cannot be empty.");
+            if(DebugLogMode)
+                Debug.LogError("Path or label cannot be empty.");
             return;
         }
 
         var assetImporter = AssetImporter.GetAtPath(path);
         if (assetImporter == null)
         {
-            Debug.LogError("No asset found at the given path.");
+            if(DebugLogMode)
+                Debug.LogError("No asset found at the given path.");
             return;
         }
 
@@ -237,32 +239,28 @@ public class MetaCompressionWindow : EditorWindow
         if (!existingLabels.Contains(label))
         {
             AssetDatabase.SetLabels(assetImporter, existingLabels.Concat(new[] { label }).ToArray());
-            Debug.Log($"Label '{label}' added to asset at path '{path}'.");
+            if(DebugLogMode)
+                Debug.Log($"Label '{label}' added to asset at path '{path}'.");
         }
         else
         {
-            Debug.Log($"Asset at path '{path}' already has the label '{label}'.");
+            if(DebugLogMode)
+                Debug.Log($"Asset at path '{path}' already has the label '{label}'.");
         }
     }
 
     public static bool AssetHasLabel(string assetPath, string label)
     {
-        // Get the AssetImporter for the asset at the given path
         AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
-
-        // Check if the assetImporter is valid
         if (assetImporter == null)
         {
-            Debug.LogError("No asset found at the given path: " + assetPath);
+            if(DebugLogMode)
+                Debug.LogError("No asset found at the given path: " + assetPath);
             return false;
         }
 
-        // Get all the labels associated with the asset
         string[] labels = AssetDatabase.GetLabels(assetImporter);
-
-        // Check if the label is present in the array of labels
         bool hasLabel = System.Array.Exists(labels, l => l == label);
-
         return hasLabel;
     }
 }
